@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blockchain.iml" filepath="$PROJECT_DIR$/.idea/modules/Blockchain.iml" group="Blockchain" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task.iml" group="Blockchain/Blockchain-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task_main.iml" group="Blockchain/Blockchain-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Blockchain/task/Blockchain-task_test.iml" group="Blockchain/Blockchain-task" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching.iml" group="Blockchain/Problems-An_approximate_matching" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching_main.iml" group="Blockchain/Problems-An_approximate_matching" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/An approximate matching/Problems-An_approximate_matching_test.iml" group="Blockchain/Problems-An_approximate_matching" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list.iml" group="Blockchain/Problems-Cycled_list" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list_main.iml" group="Blockchain/Problems-Cycled_list" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Cycled list/Problems-Cycled_list_test.iml" group="Blockchain/Problems-Cycled_list" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function.iml" group="Blockchain/Problems-Finding_an_alignment_using_a_scoring_function" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function_main.iml" group="Blockchain/Problems-Finding_an_alignment_using_a_scoring_function" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Finding an alignment using a scoring function/Problems-Finding_an_alignment_using_a_scoring_function_test.iml" group="Blockchain/Problems-Finding_an_alignment_using_a_scoring_function" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment.iml" group="Blockchain/Problems-Multiple_sequence_alignment" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment_main.iml" group="Blockchain/Problems-Multiple_sequence_alignment" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Multiple sequence alignment/Problems-Multiple_sequence_alignment_test.iml" group="Blockchain/Problems-Multiple_sequence_alignment" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope.iml" group="Blockchain/Problems-Rope" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope_main.iml" group="Blockchain/Problems-Rope" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Rope/Problems-Rope_test.iml" group="Blockchain/Problems-Rope" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util.iml" group="Blockchain/util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util_main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util_main.iml" group="Blockchain/util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/util_test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/util_test.iml" group="Blockchain/util" />
+    </modules>
+  </component>
+</project>

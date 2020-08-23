@@ -1,0 +1,15 @@
+<b>An approximate matching</b> <a class=right href="https://hyperskill.org/learn/step/5703">Open on JetBrains Academy</a>
+<br><br>
+<html>
+ <head></head>
+ <body>
+  <p>Sometimes when finding a substring in a string, we don't need to get an exact matching. In some cases, it is enough to find an approximate one. Your task here is to write a program that finds a substring in a string that is the most similar to another given string.</p> 
+  <p><strong>Input</strong>: two strings <span class="math-tex">\( s \)</span> and <span class="math-tex">\( t \)</span>: <span class="math-tex">\( 0 &lt; |s| \le |t| \le 1000 \)</span>.</p> 
+  <p><strong>Output</strong>: the first line should contain a number <span class="math-tex">\( k \)</span>, such that <span class="math-tex">\( k \)</span> is the minimal cost of edit operations transforming <span class="math-tex">\( s \)</span> into a substring of <span class="math-tex">\( t \)</span> among all the substrings of <span class="math-tex">\( t \)</span>. The following lines should contain an alignment of <span class="math-tex">\( s \)</span> with the corresponding substring. If there are several possible alignments (substrings), print any of them. Use the following costs for the edit operations:</p> 
+  <ul> 
+   <li>insertion/deletion: 3</li> 
+   <li>substitution: 5 (for equal symbols use 0)</li> 
+  </ul> 
+ </body>
+</html><br><b>Sample Input:</b><br>cab<br>abacabad<br><br><b>Sample Output:</b><br>0<br>cab<br>cab<br><br><br><b>Sample Input:</b><br>hello<br>greenyellowblue<br><br><b>Sample Output:</b><br>3<br>hello<br>-ello<br><br><br><br><font color="gray">Memory limit: 256 MB</font><br><font color="gray">Time limit: 3 seconds</font><br><br>
+<a href="https://hyperskill.org/learn/step/5698">Show topic summary</a>

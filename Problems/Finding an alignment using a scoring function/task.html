@@ -1,0 +1,19 @@
+<b>Finding an alignment using a scoring function</b> <a class=right href="https://hyperskill.org/learn/step/5702">Open on JetBrains Academy</a>
+<br><br>
+<html>
+ <head></head>
+ <body>
+  <p>When calculating the edit distance for two strings $s$ and $t$, we try to find the minimum number of operations that transform $s$ into $t$. The same problem can be considered in another way. We may assign a cost to each operation and say that we want to find the sequence of operations transforming $s$ into $t$ having the minimal cost.</p> 
+  <p>For example, we may say that an insertion, a deletion and a substitution of different symbols cost 1, a substitution of equal symbols costs 0. In this case, the sequence of operations transforming one string into another with the minimal cost will correspond to the edit distance between the strings.</p> 
+  <p>In general case, a scoring function is a way to assign different costs to the edit operations. For instance, we may prefer to use insertions and deletions instead of substitutions. In this case, we may assign a lower cost to the first two operations and a higher cost to a substitution.</p> 
+  <p>Your task here is to write a program that finds an optimal alignment between two strings according to some scoring function.</p> 
+  <p><strong>Input</strong>: two strings $s$ and $t$: $|s|, |t| \le 100$.</p> 
+  <p><strong>Output</strong>: the first line should contain the minimal cost of the edit operations transforming $s$ into $t$. The following lines should contain an alignment between the strings.</p> 
+  <p>Use the following costs for the edit operations:</p> 
+  <ul> 
+   <li>insertion/deletion: 2</li> 
+   <li>substitution: 3 (for equal symbols use 0)</li> 
+  </ul> 
+ </body>
+</html><br><b>Sample Input:</b><br>editing<br>distance<br><br><b>Sample Output:</b><br>12<br>edi-tin-g<br>-distance<br><br><br><b>Sample Input:</b><br>aaabbb<br>bbbaaa<br><br><b>Sample Output:</b><br>12<br>aaabbb---<br>---bbbaaa<br><br><br><br><font color="gray">Memory limit: 256 MB</font><br><font color="gray">Time limit: 3 seconds</font><br><br>
+<a href="https://hyperskill.org/learn/step/5698">Show topic summary</a>

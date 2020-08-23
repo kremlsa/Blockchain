@@ -1,0 +1,16 @@
+# Project exclude paths
+/.gradle/
+/Blockchain/task/build/
+/Blockchain/task/out/
+/Blockchain/task/out/production/classes/
+/Blockchain/task/out/test/classes/
+/Problems/An approximate matching/out/
+/Problems/An approximate matching/out/production/classes/
+/Problems/Cycled list/out/
+/Problems/Cycled list/out/production/classes/
+/Problems/Finding an alignment using a scoring function/out/
+/Problems/Finding an alignment using a scoring function/out/production/classes/
+/Problems/Multiple sequence alignment/out/
+/Problems/Multiple sequence alignment/out/production/classes/
+/Problems/Rope/out/
+/Problems/Rope/out/production/classes/
