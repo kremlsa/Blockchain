@@ -250,6 +250,13 @@ files:
 - name: src/blockchain/BChain.java
   visible: true
   learner_created: true
+- name: src/blockchain/ChainBchain.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/272/implement
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/50/stages/272/implement">JetBrains
+    Academy</a>
+  time: Mon, 24 Aug 2020 13:09:42 UTC
 record: 2

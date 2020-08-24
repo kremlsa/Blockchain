@@ -1,24 +1,25 @@
 package blockchain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BChain {
-    private final String name = "Block:";
-    private final int id;
+public class BChain implements Serializable {
+    String name = "Block:";
+    int id;
     long timeStamp;
     String hashPrev;
     String hash;
-    int numbersOfZeros;
     String magicNumber;
+    long genTime;
 
-    public BChain (int id, String hashPrev, int numbersOfZeros) {
+   public BChain (int id, long timeStamp, String hashPrev, String hash,
+                   String magicNumber, long genTime) {
         this.id = id;
-        this.timeStamp = new Date().getTime();
+        this.timeStamp = timeStamp;
         this.hashPrev = hashPrev;
-        this.numbersOfZeros = numbersOfZeros;
-        String forhash = this.name + " " + this.id + " " + this.timeStamp + " " + this.hashPrev;
-        this.magicNumber = utils.calchash(forhash, numbersOfZeros)[0];
-        this.hash = utils.calchash(forhash, numbersOfZeros)[1];
+        this.magicNumber = magicNumber;
+        this.hash = hash;
+        this.genTime = genTime;
     }
 
     public String getHashPrev() {
@@ -32,9 +33,10 @@ public class BChain {
     public String toString() {
         return name + "\n" +
                 "Id: " + id + "\n" +
-                "Timestamp: " +  timeStamp +"\n" +
-                "Magic number: " + hashPrev + "\n" +
+                "Timestamp:" +  timeStamp +"\n" +
+                "Magic number: " + magicNumber + "\n" +
                 "Hash of the previous block:\n" + hashPrev + "\n" +
-                "Hash of the block:\n" + hash + "\n";
+                "Hash of the block:\n" + hash + "\n" +
+                "Block was generating for " + genTime + " seconds\n";
     }
 }
