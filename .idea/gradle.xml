@@ -12,8 +12,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Blockchain/task" />
+            <option value="$PROJECT_DIR$/Problems/Alice plays letter cubes (v1)" />
+            <option value="$PROJECT_DIR$/Problems/Alice plays letter cubes (v2)" />
             <option value="$PROJECT_DIR$/Problems/An approximate matching" />
             <option value="$PROJECT_DIR$/Problems/Cycled list" />
+            <option value="$PROJECT_DIR$/Problems/Finding a string in a matrix (v1)" />
             <option value="$PROJECT_DIR$/Problems/Finding an alignment using a scoring function" />
             <option value="$PROJECT_DIR$/Problems/Multiple sequence alignment" />
             <option value="$PROJECT_DIR$/Problems/Rope" />

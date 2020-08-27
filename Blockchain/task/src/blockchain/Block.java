@@ -3,7 +3,7 @@ package blockchain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BChain implements Serializable {
+public class Block implements Serializable {
     String name = "Block:";
     int id;
     long timeStamp;
@@ -12,8 +12,8 @@ public class BChain implements Serializable {
     String magicNumber;
     long genTime;
 
-   public BChain (int id, long timeStamp, String hashPrev, String hash,
-                   String magicNumber, long genTime) {
+   public Block(int id, long timeStamp, String hashPrev, String hash,
+                String magicNumber, long genTime) {
         this.id = id;
         this.timeStamp = timeStamp;
         this.hashPrev = hashPrev;
