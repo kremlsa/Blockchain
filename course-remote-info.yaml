@@ -216,8 +216,18 @@ topics:
   - title: Custom serialization
     theory_id: 3616
   2:
-  - title: Basics of multithreading
-    theory_id: 3600
+  - title: Computer programming
+    theory_id: 8739
+  - title: Singleton
+    theory_id: 3555
+  - title: Command
+    theory_id: 7762
+  - title: Synchronous, asynchronous, parallel
+    theory_id: 9332
+  - title: Concurrency and parallelism
+    theory_id: 9341
+  - title: Processes and threads
+    theory_id: 9420
   - title: Threads as objects
     theory_id: 4875
   - title: Custom threads
@@ -230,10 +240,6 @@ topics:
     theory_id: 3610
   - title: Thread synchronization
     theory_id: 3557
-  - title: Singleton
-    theory_id: 3555
-  - title: Command
-    theory_id: 7762
   - title: Executors
     theory_id: 4895
   - title: Anonymous classes

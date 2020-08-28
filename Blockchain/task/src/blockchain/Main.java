@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 class Menu {
     Chain chain = new Chain();
     int numbersOfZeros;
+    ExecutorService executor;
 
     public void run() {
         File f = new File("chain.db");
@@ -21,12 +26,13 @@ class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter how many zeros the hash must start with: ");
         numbersOfZeros = Integer.parseInt(sc.nextLine());
-        generateChain(10);
+        //generateChain(10);
+        generateChainMT(10);
 
-        for (int i = 0; i < 5; i++) {
-            System.out.println(chain.getBlock(i).toString());
+        for (int i = 1; i < 6; i++) {
+            System.out.println(chain.getBlock(chain.getId() - i).toString());
         }
-
+        executor.shutdown();
         saveChain();
 
     }
@@ -43,6 +49,7 @@ class Menu {
         return new Block(idBlock, timeStamp, prevHash, hash, magicNumber, genTime);
     }
 
+
     public void generateChain(int size) {
         int id = chain.getId();
         String prevHash = id == 0 ? "0" : chain.getBlock(id - 1).getHash();
@@ -51,6 +58,56 @@ class Menu {
             prevHash = chain.getBlock(id).getHash();
             id++;
         }
+    }
+
+    public Block chainBlockMT (int idBlock, String prevHash) {
+        long startTime = System.currentTimeMillis();
+        long timeStamp = new Date().getTime();
+        String forhash = idBlock + " " + timeStamp + " " + prevHash;
+        //String[] calc = utils.calcHashMagic(forhash, numbersOfZeros);
+        String calc[] = multiThreading(forhash);
+        String magicNumber = calc[0];
+        String hash = calc[1];
+        long endTime = System.currentTimeMillis();
+        long genTime = (endTime - startTime) ;
+        Block block = new Block(idBlock, timeStamp, prevHash, hash, magicNumber, genTime);
+        block.setMinerId(calc[2]);
+        return block;
+    }
+
+    public void generateChainMT(int size) {
+        int id = chain.getId();
+        String prevHash = id == 0 ? "0" : chain.getBlock(id - 1).getHash();
+        for (int i = 0; i < size; i++) {
+            chain.add(chainBlockMT(id+1, prevHash));
+            prevHash = chain.getBlock(id).getHash();
+            id++;
+        }
+    }
+
+    public String[] multiThreading(String forhash) {
+        List<Future<String[]>> futures = new ArrayList<>();
+        executor = Executors.newFixedThreadPool(4);
+        String[] magic = new String[3];
+
+            for (int i = 1; i < 5; i++) {
+                futures.add(executor.submit(new MinerThread(forhash, numbersOfZeros, i)));
+            }
+            boolean isDone = false;
+            while (!isDone) {
+                for (Future<String[]> future : futures) {
+                    if (future.isDone()) {
+                        try {
+                            magic = future.get();
+                            isDone = true;
+                            break;
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        return magic;
     }
 
     public boolean validate() {

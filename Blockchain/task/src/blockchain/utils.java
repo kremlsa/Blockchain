@@ -16,7 +16,6 @@ public class utils {
         for (int i = 0; i < numbersOfZeros; i++) {
             zeros += "0";
         }
-        //if (numbersOfZeros > 0) {
             while (!isDone) {
                 magicNumber = random.nextInt(Integer.MAX_VALUE);
                 hash = calchash(input + magicNumber);
@@ -25,9 +24,6 @@ public class utils {
                 }
             }
 
-        //} else {
-        //    hash = calchash(input + magicNumber);
-       // }
         results[0] = String.valueOf(magicNumber);
         results[1] = hash;
         return (results);
