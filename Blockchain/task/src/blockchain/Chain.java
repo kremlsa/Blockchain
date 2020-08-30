@@ -22,4 +22,10 @@ public class Chain implements Serializable {
     public int getId() {
         return chain.size();
     }
+
+    public void setMessage(int id, List<String> messages) {
+        chain.get(id).setData(messages);
+    }
+
+
 }

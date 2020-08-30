@@ -3,37 +3,44 @@ package blockchain;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.*;
+import java.util.concurrent.*;
 
 class Menu {
     Chain chain = new Chain();
-    int numbersOfZeros;
+    int numbersOfZeros = 5;
     ExecutorService executor;
+    static List<String> messages = new CopyOnWriteArrayList<>();
+    MessageGenerator generator = new MessageGenerator();
 
     public void run() {
         File f = new File("chain.db");
         if (f.isFile() && f.canRead()) {
             loadChain("chain.db");
-            System.out.println(validate());
+            validate();
+            //System.out.println(validate());
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter how many zeros the hash must start with: ");
-        numbersOfZeros = Integer.parseInt(sc.nextLine());
+        //Scanner sc = new Scanner(System.in);
+        //System.out.print("Enter how many zeros the hash must start with: ");
+        //numbersOfZeros = Integer.parseInt(sc.nextLine());
         //generateChain(10);
-        generateChainMT(10);
+        //MessageGenerator generator = new MessageGenerator();
+        new Thread(generator).start();
 
-        for (int i = 1; i < 6; i++) {
-            System.out.println(chain.getBlock(chain.getId() - i).toString());
-        }
+
+        generateChainMT(10);
+        int id = chain.getId();
+        generator.shutdown();
         executor.shutdown();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(chain.getBlock(i).toString());
+        }
         saveChain();
+
+    }
+
+    public static void addMesage (String message) {
+            messages.add(message);
 
     }
 
@@ -72,6 +79,13 @@ class Menu {
         long genTime = (endTime - startTime) ;
         Block block = new Block(idBlock, timeStamp, prevHash, hash, magicNumber, genTime);
         block.setMinerId(calc[2]);
+        if (idBlock != 1) {
+            synchronized (this) {
+                block.setData(messages);
+                messages.clear();
+            }
+        }
+        executor.shutdown();
         return block;
     }
 
@@ -83,6 +97,7 @@ class Menu {
             prevHash = chain.getBlock(id).getHash();
             id++;
         }
+
     }
 
     public String[] multiThreading(String forhash) {
@@ -107,6 +122,9 @@ class Menu {
                     }
                 }
             }
+        for (Future<String[]> future : futures) {
+            future.cancel(true);
+        }
         return magic;
     }
 

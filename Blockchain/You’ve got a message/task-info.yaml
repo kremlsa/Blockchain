@@ -244,6 +244,9 @@ files:
         }
     }
   learner_created: false
+- name: src/blockchain/MessageGenerator.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/274/implement
 status: Unchecked
 record: -1
