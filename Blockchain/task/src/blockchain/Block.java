@@ -25,7 +25,6 @@ public class Block implements Serializable {
         this.magicNumber = magicNumber;
         this.hash = hash;
         this.genTime = genTime;
-        data.add("no message\n");
     }
 
     public void setMinerId(String minerId) {
@@ -51,6 +50,16 @@ public class Block implements Serializable {
     public String toString() {
         Random rand = new Random();
         int randomNum = rand.nextInt((5 - 1) + 1) + 1;
+        String dataString;
+        if (data.isEmpty()) {
+            dataString = " no messages\n";
+        } else {
+            dataString = "\n";
+            for (String d : data) {
+                dataString += d;
+                dataString += "\n";
+            }
+        }
 
         return name + "\n" +
                 "Created by miner # " + minerId + "\n" +
@@ -59,7 +68,7 @@ public class Block implements Serializable {
                 "Magic number: " + magicNumber + "\n" +
                 "Hash of the previous block:\n" + hashPrev + "\n" +
                 "Hash of the block:\n" + hash + "\n" +
-                "Block data: " + data +
+                "Block data: " + dataString +
                 "Block was generating for " + genTime + " seconds\n" +
                 "N was increased to " + randomNum + "\n";
     }

@@ -3,9 +3,14 @@ package blockchain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
 
 public class Chain implements Serializable {
     List<Block> chain = new ArrayList<>();
+    public int numbersOfZeros = 4;
+    public ExecutorService executor;
+    public List<String> messages = new CopyOnWriteArrayList<>();
 
     public void add(Block block) {
         chain.add(block);

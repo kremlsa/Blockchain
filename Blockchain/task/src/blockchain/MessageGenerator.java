@@ -1,47 +1,89 @@
 package blockchain;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.Random;
+
 import java.util.concurrent.ExecutorService;
+
 import java.util.concurrent.Executors;
 
 public class MessageGenerator implements Runnable {
+
+    Main.Menu menu;
+
     List<String> messages = new ArrayList<>(
-            List.of("when he was taken gravely ill,",
-                    "he forced one to respect him",
-                    "and nothing better could invent.",
-                    "To others his example is a lesson;",
-                    "but, good God, what a bore to sit",
-                    "by a sick person day and night, not stirring",
-                    "a step away!"));
-    ExecutorService executor = Executors.newFixedThreadPool(2);
+
+            List.of("Hi! I'm here.",
+
+                    "What's up?!",
+
+                    "It's not fair!",
+
+                    "Anyway, thank you for this amazing chat.",
+
+                    "You're welcome :)",
+
+                    "Hey, nice chat!!"));
+
+    ExecutorService executor;
+
     private volatile boolean running = true;
 
+    private Random rand = new Random();
+
+    public MessageGenerator (Main.Menu menu) {
+
+        this.menu = menu;
+
+        executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+    }
+
+    @Override
+
     public void run() {
-        Menu.addMesage("Pushkin: “My uncle has most honest principles:");
-        System.out.println("Pushkin: “My uncle has most honest principles:");
+
+        menu.addMesage("Tom: I'm first!");
+
         while (running) {
-            //executor.submit(() -> Menu.addMesage(messages.get(rand.nextInt((5 - 1) + 1) + 1)));
-            executor.submit(() -> addMesage("1"));
-            executor.submit(() -> addMesage("2"));
+
+//executor.submit(() -> Menu.addMesage(messages.get(rand.nextInt((5 - 1) + 1) + 1)));
+
+            executor.submit(() -> addMesage("Sarah"));
+            executor.submit(() -> addMesage("Nick"));
+            executor.submit(() -> addMesage("Tom"));
+
         }
+
         executor.shutdownNow();
+
     }
 
     public void addMesage(String name) {
-        Random rand = new Random();
+
         try {
-            Menu.addMesage(name + messages.get(rand.nextInt((5 - 1) + 1) + 1));
-            Thread.sleep(rand.nextInt(2));
+
+//menu.addMesage(name + messages.get(rand.nextInt((5 - 1) + 1) + 1));
+
+            menu.addMesage(name + " : " + messages.get(rand.nextInt((5 - 1) + 1) + 1));
+
+            Thread.sleep(rand.nextInt(1));
+
         } catch (Exception e) {
-            // empty
+
+// empty
+
         }
+
     }
 
     public void shutdown() {
-        running = false;
-    }
 
+        running = false;
+
+    }
 
 }
