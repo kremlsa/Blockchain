@@ -11,7 +11,7 @@ In this stage, you need to upgrade the blockchain. A block should contain messag
 <ol>
 	<li>The first block doesn't contain any messages. Miners should find the magic number of this block.</li>
 	<li>During the search of the current block, the users can send the messages to the blockchain. The blockchain should keep them in a list until miners find a magic number and a new block would be created.</li>
-	<li>After the creation of the new block, all new messages that were sent during the creation should be included in a new block and deleted from the list.</li>
+	<li>After the creation of the new block, all new messages that were sent during the creation should be included in the new block and deleted from the list.</li>
 	<li>After that, no more changes should be made to this block apart from the magic number. All new messages should be included in a list for the next block. The algorithm repeats from step 2.</li>
 </ol>
 

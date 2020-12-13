@@ -244,13 +244,308 @@ files:
         }
     }
   learner_created: false
+- name: src/blockchain/Mine.java
+  visible: true
+  text: |
+    package blockchain;
+
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.concurrent.*;
+
+    public class Mine {
+        ExecutorService executor;
+
+        public BlockChain generateChainMT(BlockChain bc, int size, int numberOfZeros) {
+            BlockChain candidate = bc;
+            numberOfZeros++;
+            for (int i = 0; i < size; i++) {
+                candidate = mining(bc, numberOfZeros);
+                if (candidate.generationTime > 1000) numberOfZeros--;
+                else numberOfZeros++;
+                bc = candidate;
+            }
+            return candidate;
+        }
+
+        public void printChain(BlockChain bc) {
+            while (bc.hasPrev()) {
+                System.out.println(bc.printBlock());
+                bc = bc.getPrev();
+            }
+            System.out.println(bc.printBlock());
+        }
+
+        public BlockChain mining(BlockChain bc, int numberOfZeros) {
+            List<Future<BlockChain>> futures = new ArrayList<>();
+            executor = Executors.newFixedThreadPool(4);
+            BlockChain candidate = null;
+
+            for (int i = 1; i < 5; i++) {
+                futures.add(executor.submit(new MinerThread(bc, numberOfZeros, i)));
+            }
+            boolean isDone = false;
+            while (!isDone) {
+                for (Future<BlockChain> future : futures) {
+                    if (future.isDone()) {
+                        try {
+                            candidate = future.get();
+                            isDone = true;
+                            break;
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            for (Future<BlockChain> future : futures) {
+                future.cancel(true);
+            }
+            executor.shutdownNow();
+            return candidate;
+        }
+    }
+
+    class MinerThread implements Callable<BlockChain> {
+        BlockChain bc;
+        int numbersOfZeros;
+        BlockChain result;
+        int minerId;
+
+        public MinerThread(BlockChain bc, int numbersOfZeros, int minerId){
+            this.bc = bc;
+            this.numbersOfZeros = numbersOfZeros;
+            this.minerId = minerId;
+
+        }
+        @Override
+        public BlockChain call() {
+            BlockChain result = bc.addNext(numbersOfZeros);
+            result.setMinerId(minerId);
+            return result;
+        }
+
+    }
+  learner_created: true
+- name: src/blockchain/Utils.java
+  visible: true
+  text: |
+    package blockchain;
+    import java.io.*;
+    import java.security.MessageDigest;
+    import java.util.Random;
+
+    public class Utils {
+
+        public static String calchash(String input) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                /* Applies sha256 to our input */
+                byte[] hash = digest.digest(input.getBytes("UTF-8"));
+                StringBuilder hexString = new StringBuilder();
+                for (byte elem: hash) {
+                    String hex = Integer.toHexString(0xff & elem);
+                    if(hex.length() == 1) hexString.append('0');
+                    hexString.append(hex);
+                }
+                return hexString.toString();
+            }
+            catch(Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static String[] calcHashMagic(String input, int numbersOfZeros) {
+            String[] results = new String[2];
+            int magicNumber = 0;
+            boolean isDone = false;
+            String zeros = "";
+            Random random = new Random();
+            String hash ="";
+            for (int i = 0; i < numbersOfZeros; i++) {
+                zeros += "0";
+            }
+            while (!isDone) {
+                magicNumber = random.nextInt(Integer.MAX_VALUE);
+                hash = calchash(input + magicNumber);
+                if (hash.startsWith(zeros)) {
+                    isDone = true;
+                }
+            }
+            results[0] = String.valueOf(magicNumber);
+            results[1] = hash;
+            return (results);
+        }
+
+        public static void saveBlockChain(BlockChain bc) {
+            try {
+                File file = new File("chain.db");
+                FileOutputStream fs = new FileOutputStream(file);
+                ObjectOutputStream os = new ObjectOutputStream(fs);
+                os.writeObject(bc);
+                os.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        public static BlockChain loadBlockChain(String input) {
+            BlockChain bc = null;
+            try {
+                File file = new File(input);
+                ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
+                bc = (BlockChain) is.readObject();
+                is.close();
+            } catch (Exception ex) {
+                return null;
+            }
+            return bc;
+        }
+
+    }
+  learner_created: true
+- name: src/blockchain/BlockChain.java
+  visible: true
+  text: |
+    package blockchain;
+
+    import java.io.Serializable;
+    import java.util.ArrayList;
+    import java.util.Collections;
+    import java.util.Date;
+
+    public class BlockChain implements Serializable {
+        private String name = "Block:";
+        private int id;
+        long timeStamp;
+        long generationTime;
+        String magicNumber;
+        String hashPrev;
+        String hash;
+        BlockChain prev = null;
+        BlockChain next = null;
+        int numbersOfZeros;
+        int minerId = 0;
+
+        public BlockChain (int id, String hashPrev, int numbersOfZeros) {
+            this.id = id;
+            this.numbersOfZeros = numbersOfZeros;
+            this.timeStamp = new Date().getTime();
+            this.hashPrev = hashPrev;
+            String forHash = this.name + " " + this.id + " " + this.timeStamp + " " + this.hashPrev;
+            long startTime = System.currentTimeMillis();
+            String[] calc = Utils.calcHashMagic(forHash, numbersOfZeros);
+            this.magicNumber = calc[0];
+            this.hash = calc[1];
+            long endTime = System.currentTimeMillis();
+            this.generationTime = (endTime - startTime);
+        }
+
+        public void setMinerId(int minerId) {
+            this.minerId = minerId;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setPrev(BlockChain prev) {
+            this.prev = prev;
+        }
+
+        public BlockChain addNext(int numbersOfZeros) {
+            BlockChain temp = new BlockChain(id + 1, hash, numbersOfZeros);
+            temp.setPrev(this);
+            this.next = temp;
+            return this.next;
+        }
+
+        public String deltaZero() {
+            String res = "";
+            int delta = this.numbersOfZeros - (hasPrev() ? getPrev().numbersOfZeros : this.numbersOfZeros);
+            if (delta == 0) {
+                res += "N stays the same";
+            } else if (delta > 0) {
+                res += "N was increased to " + numbersOfZeros;
+            } else {
+                res += "N was decreased by 1";
+            }
+            return res;
+        }
+
+        public String printBlock() {
+            return name + "\n" +
+                    "Created by miner # " + minerId + "\n" +
+                    "Id: " + id + "\n" +
+                    "Timestamp:" +  timeStamp +"\n" +
+                    "Magic number: " + magicNumber + "\n" +
+                    "Hash of the previous block:\n" + hashPrev + "\n" +
+                    "Hash of the block:\n" + hash + "\n" +
+                    "Block was generating for " + generationTime + " seconds\n" +
+                    deltaZero() + "\n";
+        }
+
+        public String printFive() {
+            String res = "";
+            ArrayList<String> arr = new ArrayList<>();
+            BlockChain temp = this;
+            if (hasPrev()) {
+            for (int i = 0; i < 5; i++) {
+                    temp = temp.getPrev();
+                    if (temp.hasPrev()) {
+                        arr.add(temp.printBlock());
+                    } else {
+                        arr.add(temp.printBlock());
+                    }
+                }
+            }
+            Collections.reverse(arr);
+            for (String s : arr) {
+                res += s + "\n";
+            }
+            return res;
+        }
+
+        public String path() {
+            String res = "" + this.id;
+            if (hasPrev()) {
+                BlockChain temp = getPrev();
+                while (temp.hasPrev()) {
+                    res += " " + temp.getId();
+                    temp = temp.getPrev();
+                }
+                res += " " + temp.getId();
+            }
+            return res;
+        }
+
+        public BlockChain getPrev() {
+            return prev;
+        }
+
+        public boolean hasNext() {
+            return next != null ? true : false;
+        }
+
+        public boolean hasPrev() {
+            return prev != null ? true : false;
+        }
+
+        public boolean validate() {
+            return false;
+        }
+
+        public BlockChain getNext() {
+            return next;
+        }
+    }
+  learner_created: true
 - name: src/blockchain/MessageGenerator.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/274/implement
 status: Solved
 feedback:
-  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/50/stages/274/implement">JetBrains
-    Academy</a>
-  time: Tue, 01 Sep 2020 15:20:35 UTC
+  message: Congratulations!
+  time: Sat, 12 Dec 2020 17:24:47 UTC
 record: 4

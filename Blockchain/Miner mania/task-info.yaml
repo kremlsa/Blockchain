@@ -239,16 +239,117 @@ files:
         }
     }
   learner_created: false
-- name: src/blockchain/MinerThread.java
+- name: chain.db
   visible: true
   learner_created: true
-- name: chain.db
+- name: src/blockchain/Utils.java
+  visible: true
+  text: |
+    package blockchain;
+    import java.security.MessageDigest;
+    import java.util.Random;
+
+    public class Utils {
+
+        public static String calchash(String input) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                /* Applies sha256 to our input */
+                byte[] hash = digest.digest(input.getBytes("UTF-8"));
+                StringBuilder hexString = new StringBuilder();
+                for (byte elem: hash) {
+                    String hex = Integer.toHexString(0xff & elem);
+                    if(hex.length() == 1) hexString.append('0');
+                    hexString.append(hex);
+                }
+                return hexString.toString();
+            }
+            catch(Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static String[] calcHashMagic(String input, int numbersOfZeros) {
+            String[] results = new String[2];
+            int magicNumber = 0;
+            boolean isDone = false;
+            String zeros = "";
+            Random random = new Random();
+            String hash ="";
+            for (int i = 0; i < numbersOfZeros; i++) {
+                zeros += "0";
+            }
+            while (!isDone) {
+                magicNumber = random.nextInt(Integer.MAX_VALUE);
+                hash = calchash(input + magicNumber);
+                if (hash.startsWith(zeros)) {
+                    isDone = true;
+                }
+            }
+            results[0] = String.valueOf(magicNumber);
+            results[1] = hash;
+            return (results);
+        }
+
+    }
+  learner_created: true
+- name: src/blockchain/BlockChain.java
+  visible: true
+  text: |
+    package blockchain;
+
+    import java.util.Date;
+
+    public class BlockChain {
+        private String name = "Block:";
+        private int id;
+        long timeStamp;
+        long generationTime;
+        String magicNumber;
+        String hashPrev;
+        String hash;
+        BlockChain next;
+        int numbersOfZeros;
+
+        public BlockChain (int id, String hashPrev, int numbersOfZeros) {
+            this.id = id;
+            this.numbersOfZeros = numbersOfZeros;
+            this.timeStamp = new Date().getTime();
+            this.hashPrev = hashPrev;
+            String forHash = this.name + " " + this.id + " " + this.timeStamp + " " + this.hashPrev;
+            long startTime = System.currentTimeMillis();
+            String[] calc = Utils.calcHashMagic(forHash, numbersOfZeros);
+            this.magicNumber = calc[0];
+            this.hash = calc[1];
+            long endTime = System.currentTimeMillis();
+            this.generationTime = (endTime - startTime) ;
+        }
+
+        public BlockChain addNext() {
+            this.next = new BlockChain(id + 1, hash, this.numbersOfZeros);
+            return this.next;
+        }
+
+        public String printBlock() {
+            return name + "\n" +
+                    "Id: " + id + "\n" +
+                    "Timestamp:" +  timeStamp +"\n" +
+                    "Magic number: " + magicNumber + "\n" +
+                    "Hash of the previous block:\n" + hashPrev + "\n" +
+                    "Hash of the block:\n" + hash + "\n" +
+                    "Block was generating for " + generationTime + " seconds\n";
+        }
+
+
+
+    }
+  learner_created: true
+- name: src/blockchain/Mine.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/273/implement
 status: Solved
 feedback:
-  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/50/stages/273/implement">JetBrains
-    Academy</a>
-  time: Fri, 28 Aug 2020 17:23:23 UTC
+  message: Congratulations!
+  time: Fri, 11 Dec 2020 08:12:22 UTC
 record: 3

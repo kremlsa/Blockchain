@@ -244,19 +244,77 @@ files:
         }
     }
   learner_created: false
-- name: src/blockchain/utils.java
+- name: src/blockchain/Utils.java
   visible: true
+  text: |
+    package blockchain;
+    import java.security.MessageDigest;
+
+    public class Utils {
+
+        public static String calchash(String input) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                /* Applies sha256 to our input */
+                byte[] hash = digest.digest(input.getBytes("UTF-8"));
+                StringBuilder hexString = new StringBuilder();
+                for (byte elem: hash) {
+                    String hex = Integer.toHexString(0xff & elem);
+                    if(hex.length() == 1) hexString.append('0');
+                    hexString.append(hex);
+                }
+                return hexString.toString();
+            }
+            catch(Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
   learner_created: true
-- name: src/blockchain/BChain.java
+- name: src/blockchain/BlockChain.java
   visible: true
-  learner_created: true
-- name: src/blockchain/ChainBchain.java
-  visible: true
+  text: |
+    package blockchain;
+
+    import java.util.Date;
+
+    public class BlockChain {
+        private String name = "Block:";
+        private int id;
+        long timeStamp;
+        String hashPrev;
+        String hash;
+        BlockChain next;
+
+        public BlockChain (int id, String hashPrev) {
+            this.id = id;
+            this.timeStamp = new Date().getTime();
+            this.hashPrev = hashPrev;
+            String forHash = this.name + " " + this.id + " " + this.timeStamp + " " + this.hashPrev;;
+            this.hash = Utils.calchash(forHash);
+        }
+
+        public BlockChain addNext() {
+            this.next = new BlockChain(id + 1, hash);
+            return this.next;
+        }
+
+        public String printBlock() {
+            return name + "\n" +
+                    "Id: " + id + "\n" +
+                    "Timestamp: " +  timeStamp +"\n" +
+                    "Hash of the previous block:\n" + hashPrev + "\n" +
+                    "Hash of the block:\n" + hash + "\n";
+        }
+
+
+
+    }
   learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/272/implement
 status: Solved
 feedback:
-  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/50/stages/272/implement">JetBrains
-    Academy</a>
-  time: Mon, 24 Aug 2020 13:09:42 UTC
+  message: Congratulations!
+  time: Fri, 11 Dec 2020 02:17:30 UTC
 record: 2

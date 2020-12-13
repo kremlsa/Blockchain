@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":Problems-Alice_plays_letter_cubes__v1_:test" external.linked.project.path="$MODULE_DIR$/../../../../Problems/Alice plays letter cubes (v1)" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="Blockchain" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":Problems-Decompose_a_math_function:test" external.linked.project.path="$MODULE_DIR$/../../../../Problems/Decompose a math function" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="Blockchain" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <output-test url="file://$MODULE_DIR$/../../../../Problems/Alice plays letter cubes (v1)/out/test/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../../Problems/Decompose a math function/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../../Problems/Alice plays letter cubes (v1)/src/test" />
-    <content url="file://$MODULE_DIR$/../../../../Problems/Alice plays letter cubes (v1)/test" />
+    <content url="file://$MODULE_DIR$/../../../../Problems/Decompose a math function/src/test" />
+    <content url="file://$MODULE_DIR$/../../../../Problems/Decompose a math function/test" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Problems-Alice_plays_letter_cubes__v1__main" />
+    <orderEntry type="module" module-name="Problems-Decompose_a_math_function_main" />
     <orderEntry type="library" name="Gradle: com.github.hyperskill:hs-test:release-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.assertj:assertj-swing-junit:3.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.stefanbirkner:system-rules:1.19.0" level="project" />
@@ -27,5 +27,5 @@
     <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.8.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.easytesting:fest-util:1.2.5" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="Problems-Alice_plays_letter_cubes__v1__main" />
+  <component name="TestModuleProperties" production-module="Problems-Decompose_a_math_function_main" />
 </module>

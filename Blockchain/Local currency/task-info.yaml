@@ -1,17 +1,6 @@
 type: edu
 custom_name: stage6
 files:
-- name: src/blockchain/Main.java
-  visible: true
-  text: |
-    package blockchain;
-
-    public class Main {
-        public static void main(String[] args) {
-            System.out.println("Hello World!");
-        }
-    }
-  learner_created: false
 - name: test/BlockchainTest.java
   visible: false
   text: |
@@ -249,6 +238,30 @@ files:
         }
     }
   learner_created: false
+- name: src/blockchain/MessageGenerator.java
+  visible: true
+  learner_created: true
+- name: src/blockchain/Main.java
+  visible: true
+  learner_created: true
+- name: src/blockchain/BlockChain.java
+  visible: true
+  learner_created: true
+- name: src/blockchain/Utils.java
+  visible: true
+  learner_created: true
+- name: src/blockchain/Mine.java
+  visible: true
+  learner_created: true
+- name: chain.db
+  visible: true
+  learner_created: true
+- name: src/blockchain/TransactionGenerator.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/50/stages/276/implement
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sun, 13 Dec 2020 15:52:24 UTC
+record: 6
